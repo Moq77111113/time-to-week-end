@@ -1,0 +1,174 @@
+{
+  "name": "time-to-week-end",
+  "displayName": "Time to Week-End",
+  "description": "Are you tired of feeling like a weekday warrior? Take charge of your weekends with Time to Week-End, the VS Code extension that helps you count down the minutes until Friday night!",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "time-to-week-end.run"
+  ],
+  "main": "./out/main.js",
+  "contributes": {
+    "configuration": {
+      "title": "Time to Week-End",
+      "properties": {
+        "time-to-week-end.format": {
+          "type": "string",
+          "default": "hms",
+          "enum": [
+            "hms",
+            "hh:mm:ss",
+            "hours,minutes,seconds",
+            "dhms",
+            "dd:hh:mm:ss",
+            "days,hours,minutes,seconds"
+          ],
+          "markdownEnumDescriptions": [
+            "**hms**: Display time remaining as '00h 00m 00s'",
+            "**hh:mm:ss**: Display time remaining as '00:00:00'",
+            "**hours,minutes,seconds**: Display time remaining as '00 hours, 00 minutes, 00 seconds'",
+            "**dhms**: Display time remaining as '00d 00h 00m 00s'",
+            "**dd:hh:mm:ss**: Display time remaining as '00:00:00:00'",
+            "**days,hours,minutes,seconds**: Display time remaining as '00 days, 00 hours, 00 minutes, 00 seconds'"
+          ],
+          "description": "The format to display the remaining time."
+        },
+        "time-to-week-end.displayText": {
+          "type": "string",
+          "default": "custom",
+          "enum": [
+            "short",
+            "medium",
+            "none",
+            "custom",
+            "long"
+          ],
+          "description": "Format the text displayed in the status bar."
+        },
+        "time-to-week-end.customText": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "default": "until week-end !",
+              "description": "Custom text to display in the status bar with remaining time. use mustach syntax with {{ date}} {{format}} to use date"
+            },
+            "format": {
+              "type": "string",
+              "default": "dd/mm/yyyy HH:mm:ss",
+              "description": "Custom text to display in the status bar with remaining time."
+            }
+          },
+          "description": "Custom text to display in the status bar with remaining time. use mustach syntax with {{ date}} to use date"
+        },
+        "time-to-week-end.week-end": {
+          "type": "object",
+          "properties": {
+            "dayOfWeek": {
+              "type": "string",
+              "default": "Friday",
+              "enum": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "description": "The day of the week when the countdown ends."
+            },
+            "timeOfDay": {
+              "type": "string",
+              "default": "16:00",
+              "pattern": "^([0-9]|1[0-9]|2[0-3]):([0-5][0-9])$",
+              "description": "The time of day when the countdown ends, in format 'HH:mm' with quarter hour intervals."
+            }
+          },
+          "description": "The date and time when the countdown ends."
+        },
+        "time-to-week-end.on-week-end": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string",
+              "default": "#FF80BF",
+              "description": "Background color for the week-end message."
+            },
+            "title": {
+              "type": "string",
+              "default": "Week-end !",
+              "description": "Title for the week-end message."
+            },
+            "text": {
+              "type": "string",
+              "default": "It's time to relax, enjoy your week-end !",
+              "description": "Text content for the week-end message."
+            },
+            "emojis": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": [
+                "🎉",
+                "🎊",
+                "🥳",
+                "🎈",
+                "🎁"
+              ],
+              "description": "Emojis to be used for the confetti effect."
+            },
+            "gif": {
+              "type": "string",
+              "default": "https://media4.giphy.com/media/vuEAn3bsY9rEs5mXvg/giphy.gif?cid=ecf05e47hfkwkuhunxfskfpz9z9bw1d82muljill914h5ura&rid=giphy.gif&ct=g",
+              "description": "URL of the GIF to be displayed."
+            },
+            "url": {
+              "type": "string",
+              "default": "",
+              "description": "An additional URL property."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Settings for the On Week-end behavior."
+        }
+      }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/handlebars-helpers": "^0.5.3",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.77.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3",
+    "handlebars": "^4.7.7",
+    "handlebars-helpers": "^0.10.0",
+    "js-confetti": "^0.11.0"
+  }
+}
