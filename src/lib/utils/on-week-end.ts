@@ -1,11 +1,14 @@
-import { ExtensionContext, window, ViewColumn } from 'vscode';
+import { ExtensionContext, window, ViewColumn } from '../vscode';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import * as HBS from 'handlebars';
 import { Configuration } from '../interfaces/configuration.interface';
 import * as vscode from 'vscode';
-const helpers = require('handlebars-helpers')();
-export const onWeekEnd = (
+import hbsHelpers from 'handlebars-helpers';
+
+const helpers = hbsHelpers();
+
+export default (
   context: ExtensionContext,
   data?: Configuration['on-week-end']
 ) => {

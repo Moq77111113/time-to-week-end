@@ -7,9 +7,13 @@
     },
     "plugins": [
         "@typescript-eslint"
-    ],
-    "rules": {
-        "typescript-eslint/naming-convention": [
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
             "error",
             {
                 "selector": "enumMember",
@@ -20,17 +24,12 @@
                 "trailingUnderscore": "forbid"
             }
         ],
-        "enum-member-hanging": "always",
-        "enum-member-spacing": [
-            "error",
-            "never"
-        ],
         "@typescript-eslint/semi": "warn",
         "curly": "warn",
         "eqeqeq": "warn",
         "no-throw-literal": "warn",
-        "semi": "off",
-    },
+        "semi": "off"
+    },    
     "ignorePatterns": [
         "out",
         "dist",

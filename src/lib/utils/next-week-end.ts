@@ -1,6 +1,6 @@
 import { DayOfWeek } from '../enums';
 
-export const nextWeekEnd = (dayOfWeek: DayOfWeek, timeOfDay: number) => {
+export default (dayOfWeek: DayOfWeek, timeOfDay: number) => {
   const today = new Date();
   const until = new Date(today);
 

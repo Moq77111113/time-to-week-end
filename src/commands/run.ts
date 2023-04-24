@@ -1,25 +1,27 @@
-import * as vscode from 'vscode';
-import { Configuration } from '../interfaces/configuration.interface';
-import format from '../utils/format';
-import { onWeekEnd } from '../utils/on-week-end';
-import remainingTime from '../utils/remainingTime';
-import { validateWeekEnd } from '../validators';
 import { format as formatDate } from 'date-fns';
-import { DisplayText } from '../enums';
-import { nextWeekEnd } from '../utils';
-import { name as remainingTimeCommand } from './remaining-time';
-
+import {
+  ExtensionContext,
+  window,
+  StatusBarAlignment,
+  workspace,
+  WorkspaceConfiguration,
+  VsCodeEnv,
+} from '../lib/vscode';
+import { DisplayText } from '../lib/enums';
+import { Configuration } from '../lib/interfaces';
+import { nextWeekEnd, onWeekEnd, remainingTime } from '../lib/utils';
+import { format } from '../lib/utils';
+import { validateWeekEnd } from '../lib/validators';
 export const name = 'time-to-week-end.run';
 
-export default (context: vscode.ExtensionContext) => {
-  const statusBarItem = vscode.window.createStatusBarItem(
-    vscode.StatusBarAlignment.Right,
+export default (context: ExtensionContext) => {
+  const statusBarItem = window.createStatusBarItem(
+    StatusBarAlignment.Right,
     100
   );
-  statusBarItem.command = remainingTimeCommand;
   context.subscriptions.push(statusBarItem);
 
-  const config = vscode.workspace.getConfiguration('time-to-week-end');
+  const config = workspace.getConfiguration('time-to-week-end');
   const { dayOfWeek, timeOfDay } = validateWeekEnd(
     config.get<Configuration['week-end']>('week-end', {
       dayOfWeek: 'Friday',
@@ -51,7 +53,7 @@ export default (context: vscode.ExtensionContext) => {
   context.subscriptions.push({ dispose: () => clearInterval(intervalId) });
 };
 
-const displayedText = (config: vscode.WorkspaceConfiguration, until: Date) => {
+const displayedText = (config: WorkspaceConfiguration, until: Date) => {
   const displayTextOption = config.get<Configuration['displayText']>(
     'displayText',
     DisplayText.Custom
@@ -71,7 +73,7 @@ const displayedText = (config: vscode.WorkspaceConfiguration, until: Date) => {
       break;
     }
     case DisplayText.Medium: {
-      displayText = `until ${until.toLocaleDateString(vscode.env.language)} !`;
+      displayText = `until ${until.toLocaleDateString(VsCodeEnv.language)} !`;
       break;
     }
     case DisplayText.None: {
@@ -79,7 +81,7 @@ const displayedText = (config: vscode.WorkspaceConfiguration, until: Date) => {
       break;
     }
     case DisplayText.Long: {
-      displayText = `until ${until.toLocaleString(vscode.env.language, {
+      displayText = `until ${until.toLocaleString(VsCodeEnv.language, {
         hour12: false,
         hour: 'numeric',
         minute: 'numeric',

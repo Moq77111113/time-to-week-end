@@ -1,9 +1,9 @@
-# Change Log
+# Changelog
+This file documents all notable changes to the "time-to-week-end" extension.
 
-All notable changes to the "time-to-week-end" extension will be documented in this file.
+## [1.0.0] - 24.04.2023
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+### Added
+ - Initial release of the "time-to-week-end" extension.
+ - Feature: Display a countdown until the weekend in the status bar.
+ - Feature: Show an HTML page when the weekend arrives.

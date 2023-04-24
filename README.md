@@ -53,6 +53,8 @@ This extension was made possible thanks to the following dependencies:
 
 - *date-fns* for date manipulation
 - *js-confetti* for confetti animations
+- *handlebars* for the beautiful week-end behavior
+- *handlebars-helpers* for the beautiful week-end behavior
 
 
 ## Contributing
